@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
+AUTH_USER_MODEL = "blog.BlogUser"
 # todo: implement custom user model
 
 MIDDLEWARE = [
