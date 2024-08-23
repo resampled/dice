@@ -3,12 +3,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>{% block title %}Dice-Blog{% endblock %}</title>
     <style>
-
-
+/* temporary stylesheet */
+body {
+    margin: 0;
+}
+.nav {
+    background: #ddd;
+    text-align:center;
+}
+.content {
+    padding: 8px;
+}
     </style>
 </head>
 <body>
+<div class="nav">
+{% block topnav %}
+<span>Topnav</span>
+{% endblock %}
+</div>
+<div class="content">
 {% block content %}
 {% endblock %}
+</div>
 </body>
 </html>
