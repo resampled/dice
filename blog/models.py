@@ -8,4 +8,3 @@ class BlogUser(AbstractUser):
     def __str__(self):
         return self.username
 
-# todo: implement abstract user model
