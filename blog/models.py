@@ -8,3 +8,12 @@ class BlogUser(AbstractUser):
     def __str__(self):
         return self.username
 
+# todo make these
+
+class BlogPost(models.Model):
+    pass
+
+class BlogComment(models.Model):
+    pass
+
+

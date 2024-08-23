@@ -7,3 +7,4 @@ def homepage(request):
         'datetime': datetime.datetime.now,
     }
     return render(request, 'homepage.html', context=context)
+
