@@ -1,0 +1,14 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+{% if blogpost_list %}
+    {% for post in blogpost_list %}
+        <fieldset>
+        <legend>by {{ post.author }}</legend><!-- <a> in future -->
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        </fieldset>
+    {% endfor %}
+{% else %}
+<p>No posts.</p>
+{% endif %}
+{% endblock %}
