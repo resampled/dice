@@ -2,3 +2,6 @@
 
 Be warned that currently this software is in active development and not fully implemented. Please do not attempt to deploy or use this software yourself at this point in time, or you will be really disappointed.
 In the future, additional packages (e.g. AllAuth) may be required.
+
+So far, the following Python packages are required:
+nanoid 2.0.0 (`pip install nanoid==2.0.0`)
