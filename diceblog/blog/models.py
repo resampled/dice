@@ -14,15 +14,11 @@ class BlogUser(AbstractUser):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=240, unique=True)
-    order = models.FloatField()
-    id = models.SlugField(unique=True,primary_key=True)
+    order = models.FloatField(default=datetime.datetime.now().timestamp()) # sticky bug
+    id = models.SlugField(unique=True,primary_key=True,default=generate('1234567890bcdfghijkmnpqrstuvwxyz', 8)) # sticky bug
     # preformatted content
     pre_content = models.TextField(max_length=20000)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
-    def CreateID(self):
-        order = datetime.datetime.now().timestamp()
-        id = generate('1234567890bcdfghijkmnpqrstuvwxyz', 8)
-        pass
     def get_absolute_url(self):
         return reverse('post-detail', args=[str(self.id)])
     def __str__(self):

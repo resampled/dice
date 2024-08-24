@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-ixxcfp=u(#@adf3zwc19^3+lk_92b8cq-&h)mp_p!1roo#e%r-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# STATIC_ROOT = '/var/www/static'
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ For debug=False. Needs apache or similar webserver.
+STATIC_URL = 'staticfiles/'
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = "blog.BlogUser"
-# todo: implement custom user model
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -114,12 +116,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

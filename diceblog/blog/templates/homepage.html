@@ -1,5 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-it is currently {{ datetime }} (UTC).
+It is currently {{ datetime }} (UTC).
+<ul>
+    <li><a href="{% url 'post-list' %}">post list</a></li>
+    <li><a >user list</a></li>
+</ul>
 {% endblock %}
