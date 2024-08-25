@@ -17,7 +17,7 @@ class BlogPost(models.Model):
     order = models.FloatField(default=datetime.datetime.now().timestamp()) # sticky bug
     id = models.SlugField(unique=True,primary_key=True,default=generate('1234567890bcdfghijkmnpqrstuvwxyz', 8)) # sticky bug
     # preformatted content
-    pre_content = models.TextField(max_length=20000)
+    pre_content = models.TextField(max_length=80000)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk':self.id,'author':self.author.username})
@@ -29,4 +29,4 @@ class BlogComment(models.Model):
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     content = models.TextField(max_length=1700)
     def __str__(self):
-        return self.id
+        return self.content[:90]

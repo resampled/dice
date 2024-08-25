@@ -1,1 +1,17 @@
+{% extends 'base_generic.html' %}
 
+{% block content %}
+    <h2 class="bp-title">{{ blogpost.title }}</h2>
+    <p class="bp-full">{{ blogpost.pre_content }}</p>
+<div class="cmtbox">
+    <button>write comment (TODO)</button>
+</div>
+{% if blogcomment_list %}
+    {% for cmt in blogcomment_list %}
+        <i>{{ cmt.author }}</i>
+        <p>{{ cmt.content }}</p>    
+    {% endfor %}
+{% else %}
+No comments. TODO: Make this work???
+{% endif %}
+{% endblock %}
