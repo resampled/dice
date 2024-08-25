@@ -20,7 +20,7 @@ class BlogPost(models.Model):
     pre_content = models.TextField(max_length=20000)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     def get_absolute_url(self):
-        return reverse('post-detail', args=[str(self.id)])
+        return reverse('post-detail', kwargs={'pk':self.id,'author':self.author.username})
     def __str__(self):
         return self.title
 
