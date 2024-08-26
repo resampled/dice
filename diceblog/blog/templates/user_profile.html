@@ -1,4 +1,14 @@
-<pre>
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<h2>you are logged in as <i>{{ user.get_username }}</i></h2>
+<ul>
+    <li><a href="{% url 'account_change_password' %}">Change password</a></li>
+    <li><a href="{% url 'account_email' %}">Change email</a></li>
+    <li><a href="{% url 'account_logout' %}">Logout</a></li>
+</ul>
+
+<!--
 accounts/ login/ [name='account_login']
 accounts/ logout/ [name='account_logout']
 accounts/ inactive/ [name='account_inactive']
@@ -13,4 +23,5 @@ accounts/ password/reset/ [name='account_reset_password']
 accounts/ password/reset/done/ [name='account_reset_password_done']
 accounts/ ^password/reset/key/(?P(uidb36)[0-9A-Za-z]+)-(?P(key).+)/$ [name='account_reset_password_from_key']
 accounts/ password/reset/key/done/ [name='account_reset_password_from_key_done'] 
-</pre>
+-->
+{% endblock %}

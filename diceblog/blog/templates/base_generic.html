@@ -24,6 +24,11 @@ body {
 <div class="nav">
 {% block topnav %}
 <span>Topnav</span>
+    {% if user.is_authenticated %}
+        <a href="{% url 'user-profile' %}">manage user</a>
+    {% else %}
+        <a href="{% url 'account_login' %}">login</a>
+    {% endif %}
 {% endblock %}
 </div>
 <div class="content">
