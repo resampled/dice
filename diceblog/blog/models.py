@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 import datetime
-from nanoid import generate # NanoID package required from pip, I use 2.0.0
+from nanoid import generate
 
 class BlogUser(AbstractUser):
     username = models.SlugField(max_length=20, unique=True)
@@ -12,10 +12,15 @@ class BlogUser(AbstractUser):
     def __str__(self):
         return self.username
 
+def make_order():
+    return float(datetime.datetime.now().timestamp())
+def make_id(chars):
+    return str(generate('1234567890bcdfghijkmnpqrstuvwxyz', chars))
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=240, unique=True)
-    order = models.FloatField(default=datetime.datetime.now().timestamp()) # sticky bug
-    id = models.SlugField(unique=True,primary_key=True,default=generate('1234567890bcdfghijkmnpqrstuvwxyz', 8)) # sticky bug
+    order = models.FloatField(default=make_order)
+    id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     # preformatted content
     pre_content = models.TextField(max_length=80000)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
@@ -28,5 +33,7 @@ class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     content = models.TextField(max_length=1700)
+    order = models.FloatField(default=make_order)
+    id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     def __str__(self):
         return self.content[:90]
