@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render
 from django.views import generic
 from .models import BlogPost, BlogUser, BlogComment
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 # from .models import -MODELS-
 
 def homepage(request):
@@ -18,6 +18,7 @@ class PostListView(generic.ListView):
 class PostDetailView(generic.DetailView):
     model = BlogPost
 
+@login_required
 def UserProfile(request):
     context = {
     }
