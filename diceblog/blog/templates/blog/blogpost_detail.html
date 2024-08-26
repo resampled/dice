@@ -6,12 +6,16 @@
 <div class="cmtbox">
     <button>write comment (TODO)</button>
 </div>
-{% if blogcomment_list %}
-    {% for cmt in blogcomment_list %}
-        <i>{{ cmt.author }}</i>
-        <p>{{ cmt.content }}</p>    
+{% if blogpost.blogcomment_set %}
+    {% for cmt in blogpost.blogcomment_set.all %}
+    <div class="cmt">
+        <div class="cmt-header">
+            <span class="cmt-author">{{ cmt.author }}</span>
+        </div>
+        <p class="cmt-full">{{ cmt.content }}</p>
+    </div>    
     {% endfor %}
 {% else %}
-No comments. TODO: Make this work???
+No comments.
 {% endif %}
 {% endblock %}
