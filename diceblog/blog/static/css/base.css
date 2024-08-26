@@ -1,0 +1,23 @@
+/* this is a temp file */
+
+
+body {
+    margin: 0;
+}
+
+/* topnav */
+.nav {
+    background: #ddd;
+    text-align:center;
+}
+
+/* main */
+.content {
+    padding: 8px;
+}
+
+
+/* posts */
+.bp-full {
+    white-space: preserve;
+}
