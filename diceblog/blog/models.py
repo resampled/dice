@@ -28,6 +28,8 @@ class BlogPost(models.Model):
         return reverse('post-detail', kwargs={'pk':self.id,'author':self.author.username})
     def __str__(self):
         return self.title
+    class Meta:
+        ordering = ['order']
 
 class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
@@ -36,4 +38,6 @@ class BlogComment(models.Model):
     order = models.FloatField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     def __str__(self):
-        return self.content[:90]
+        return self.content[:90]    
+    class Meta:
+        ordering = ['order']
