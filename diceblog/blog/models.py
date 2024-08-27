@@ -13,13 +13,13 @@ class BlogUser(AbstractUser):
         return self.username
 
 def make_order():
-    return float(datetime.datetime.now().timestamp())
+    return datetime.datetime.now()
 def make_id(chars):
     return str(generate('1234567890bcdfghijkmnpqrstuvwxyz', chars))
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=240, unique=True)
-    order = models.FloatField(default=make_order)
+    order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     # preformatted content
     pre_content = models.TextField(max_length=80000)

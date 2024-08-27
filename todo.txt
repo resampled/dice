@@ -1,5 +1,4 @@
 To do:
-* Redo "order" so it's an actual django-readable timestamp instead of a float using unix time (what)
 * Make forms for everything (comment & post creation first)
 * * * * Make comment forms on the actual post page
 * CSS and template overhaul
