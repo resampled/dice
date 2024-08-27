@@ -5,6 +5,10 @@ from django.utils.text import slugify
 import datetime
 from nanoid import generate
 
+blog_title_max = 240
+blog_content_max = 80000
+comment_max = 1700
+
 class BlogUser(AbstractUser):
     username = models.SlugField(max_length=20, unique=True)
     description = models.TextField(max_length=500)
@@ -18,11 +22,11 @@ def make_id(chars):
     return str(generate('1234567890bcdfghijkmnpqrstuvwxyz', chars))
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=240, unique=True)
+    title = models.CharField(max_length=blog_title_max, unique=True)
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     # preformatted content
-    pre_content = models.TextField(max_length=80000)
+    pre_content = models.TextField(max_length=blog_content_max)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk':self.id,'author':self.author.username})
@@ -34,7 +38,7 @@ class BlogPost(models.Model):
 class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
-    content = models.TextField(max_length=1700)
+    content = models.TextField(max_length=comment_max)
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     def __str__(self):
