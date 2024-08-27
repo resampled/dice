@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-ixxcfp=u(#@adf3zwc19^3+lk_92b8cq-&h)mp_p!1roo#e%r-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-STATIC_ROOT = '/var/www/static'
+STATICFILES_DIRS = [
+    "/var/www/static/",
+    BASE_DIR / "static",
+]
+#STATIC_ROOT = '/var/www/static'
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Required for debug=False. Needs apache or similar webserver.
 STATIC_URL = 'staticfiles/'
 ALLOWED_HOSTS = ['127.0.0.1']
