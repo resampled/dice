@@ -35,7 +35,7 @@ class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     content = models.TextField(max_length=1700)
-    order = models.FloatField(default=make_order)
+    order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     def __str__(self):
         return self.content[:90]    
