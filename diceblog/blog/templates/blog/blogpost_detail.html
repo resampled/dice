@@ -4,7 +4,12 @@
     <h2 class="bp-title">{{ blogpost.title }}</h2>
     <p class="bp-full">{{ blogpost.pre_content }}</p>
 <div class="cmtbox">
-    {% include 'blogpost_cmtbox.html' %}
+<!--    {% include 'blogpost_cmtbox.html' %} -->
+<form method="post">
+{% csrf_token %}
+<textarea name="content"></textarea>
+<input type="submit" name="cmtsubmit" value="Post to {{ blogpost.id }}">
+</form>
 </div>
 {% if blogpost.blogcomment_set %}
     {% for cmt in blogpost.blogcomment_set.all %}
