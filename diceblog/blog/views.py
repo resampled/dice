@@ -22,8 +22,8 @@ class PostDetailView(generic.DetailView):
     # cmtbox (login should be enforced at template level)
     def post(self, request, *args, **kwargs):
             if user.is_authenticated and 'cmtsubmit' in request.POST and 'content' in request.POST:
-                BlogComment.create(assigned_post=model,author=user,content="content")
-        
+                #BlogComment.create(assigned_post= ,author=user,content="content")
+                # TODO - what should assigned_post be???
 
 @login_required
 def UserProfile(request):
