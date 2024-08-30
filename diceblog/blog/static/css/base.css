@@ -1,23 +1,49 @@
-/* this is a temp file */
-
-
+/* */
 body {
     margin: 0;
 }
-
-/* topnav */
-.nav {
-    background: #ddd;
-    text-align:center;
-}
-
-/* main */
 .content {
-    padding: 8px;
+    padding: 20px;
+}
+/* */
+a {
+    text-decoration:underline;
+}
+a:hover {
+    text-decoration:none;
+}
+/* nav */
+.nav {
+    background: #476A86;
+    background: linear-gradient(0deg, #476A86, #87A9F9);
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:baseline;
+    padding: 4px 8px;
+    font-size:1.3em;
+    font-weight:bold;
+}
+.nav a {
+    color: #fff;
+}
+.nav a:hover {
+    color: #eee;
+}
+.nav-hp {
+    font-size:1.5em;
 }
 
-
-/* posts */
+/* */
 .bp-full {
     white-space: preserve;
 }
+.cmt-full {
+    white-space: preserve;
+}
+
+/* */
+.cmt:target {
+   background-color: #ffa;
+}
+

@@ -1,6 +1,7 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
+<div class="breadcrumb"><a href="{% url 'post-list' %}">&lt;&lt; back to post list</a></div>
 <div class="bp">
     <h2 class="bp-title">{{ blogpost.title }}</h2>
     <div class="bp-h">posted by
@@ -21,17 +22,16 @@
     <textarea disabled>You're not logged in!</textarea>
     <input type="submit" disabled value="Post to {{ blogpost.id }}">
 {% endif %}
-
 </div>
+
 {% if blogpost.blogcomment_set %}
     {% for cmt in blogpost.blogcomment_set.all %}
-    <div class="cmt">
+    <div class="cmt" id="cmt-{{ cmt.id }}">
         <div class="cmt-h">
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-datetime">{{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC</span>
         </div>
-        <p class="cmt-full">{{ cmt.content }}</p>
-    </div>    
+        <p class="cmt-full">{{ cmt.content }}</p></div>    
     {% endfor %}
 {% else %}
 No comments.
