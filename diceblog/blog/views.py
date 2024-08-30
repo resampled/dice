@@ -4,6 +4,7 @@ from django.views import generic
 from .models import BlogPost, BlogUser, BlogComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+from django.http import HttpResponse
 
 user = get_user_model()
 
@@ -22,8 +23,15 @@ class PostDetailView(generic.DetailView):
     # cmtbox (login should be enforced at template)
     def post(self, request, *args, **kwargs):
             if user.is_authenticated and 'cmtsubmit' in request.POST and 'content' in request.POST:
-                #BlogComment.create(assigned_post=self.get_object(),author=request.user,content="content")
-                # TODO  make "author=" go to the current user
+                # https://blog.extrovert.dev/2021/05/get-current-logged-in-user-in-django.html
+                BlogComment.create(
+                    assigned_post=self.get_object(),
+                    author=self.request.user,
+                    content="content-todo replace-"
+                )
+                # TODO push this to DB
+                # and make a proper redirect to the GET page
+                return HttpResponse("idk")
 @login_required
 def UserProfile(request):
     context = {
