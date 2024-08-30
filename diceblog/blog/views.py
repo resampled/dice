@@ -1,3 +1,4 @@
+import re
 import datetime
 from django.shortcuts import render
 from django.views import generic
@@ -29,6 +30,10 @@ class PostDetailView(generic.DetailView):
                     author=self.request.user,
                     content=request.POST["content"]
                 )
+                # detect whitespace only comment
+                if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+                    return HttpResponseRedirect("")
+                # approve
                 cmt.save()             
                 return HttpResponseRedirect("")
 @login_required
