@@ -40,7 +40,7 @@ class BlogComment(models.Model):
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     content = models.TextField(max_length=comment_max)
     order = models.DateTimeField(default=make_order)
-    id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
+    id = models.SlugField(unique=True,primary_key=True,default=make_id(18))
     def create(assigned_post,author,content):
         return BlogComment(assigned_post=assigned_post,author=author,content=content,order=make_order(),id=make_id(8))
     def __str__(self):

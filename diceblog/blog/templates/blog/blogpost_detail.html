@@ -1,8 +1,15 @@
 {% extends 'base_generic.html' %}
 
 {% block content %}
+<div class="bp">
     <h2 class="bp-title">{{ blogpost.title }}</h2>
+    <div class="bp-h">posted by
+        <span class="bp-author">{{ blogpost.author }}</span>
+        at
+        <span class="bp-datetime">{{ blogpost.order|date:"Y-m-d @ G:i:s" }} UTC</span>
+    </div>
     <p class="bp-full">{{ blogpost.pre_content }}</p>
+</div>
 <div class="cmtbox">
 {% if user.is_authenticated %}
     <form method="post">
@@ -19,8 +26,9 @@
 {% if blogpost.blogcomment_set %}
     {% for cmt in blogpost.blogcomment_set.all %}
     <div class="cmt">
-        <div class="cmt-header">
+        <div class="cmt-h">
             <span class="cmt-author">{{ cmt.author }}</span>
+            <span class="cmt-datetime">{{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC</span>
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
     </div>    

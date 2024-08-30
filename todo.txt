@@ -1,6 +1,5 @@
 To do:
-* Make forms for everything (comment & post creation first)
-* * * * Make comment forms on the actual post page
+* Make forms for everything (post creation first)
 * CSS and template overhaul
 * Get the AllAuth pages to load the stylesheet, if not, replace em! (could template-in-template be an option?)
 --- in the futuer... ---
