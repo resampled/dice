@@ -19,6 +19,10 @@ class PostListView(generic.ListView):
     model = BlogPost
     paginate_by = 10
 
+class UserListView(generic.ListView):
+    model = BlogUser
+    paginate_by = 10
+
 class PostDetailView(generic.DetailView):
     model = BlogPost
     # cmtbox (for guests this isn't used - shows a non-functional mimic form instead)
