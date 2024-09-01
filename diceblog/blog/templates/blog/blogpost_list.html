@@ -5,12 +5,12 @@
     {% for post in blogpost_list %}
         <div class="bl-item">
         <div class="bl-h">
-            <span class="bl-author">by {{ post.author }}</span>
+            <span class="bl-author">by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a></span>
             &bull; <span class="bl-comments bl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
         </div>
         <div class="bl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
         <p class="bl-preview">{{ post.pre_content|truncatechars:500 }}</p>
-        </fieldset>
+        </div>
     {% endfor %}
 {% else %}
 <p>No posts.</p>
