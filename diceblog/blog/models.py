@@ -15,6 +15,8 @@ class BlogUser(AbstractUser):
     email = models.EmailField(unique=True)
     def __str__(self):
         return self.username
+    def get_absolute_url(self):
+        return reverse('user-detail', kwargs={'pk':self.username})
 
 def make_order():
     return datetime.datetime.now()
