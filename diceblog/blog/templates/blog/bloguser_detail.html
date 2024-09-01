@@ -14,8 +14,9 @@
         <h3 class="uppl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </h3>
         <div class="uppl-h">
             <span class="uppl-datetime">{{ post.order|date:"Y-m-d @ G:i:s" }} UTC</span>
+            &bull; <span class="uppl-comments uppl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
         </div>
-        <p class="uppl-full">{{ post.pre_content|truncatechars:500 }}</p>
+        <p class="uppl-preview">{{ post.pre_content|truncatechars:500 }}</p>
     </div>    
     {% endfor %}
 {% else %}

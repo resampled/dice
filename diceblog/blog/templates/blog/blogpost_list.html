@@ -3,10 +3,13 @@
 {% block content %}
 {% if blogpost_list %}
     {% for post in blogpost_list %}
-        <fieldset>
-        <legend>by {{ post.author }}</legend><!-- <a> in future -->
-        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
-        <p>{{ post.pre_content|truncatechars:100 }}</p>
+        <div class="bl-item">
+        <div class="bl-h">
+            <span class="bl-author">by {{ post.author }}</span>
+            &bull; <span class="bl-comments bl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
+        </div>
+        <div class="bl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
+        <p class="bl-preview">{{ post.pre_content|truncatechars:500 }}</p>
         </fieldset>
     {% endfor %}
 {% else %}
