@@ -2,11 +2,13 @@
 
 {% block content %}
 {% if bloguser_list %}
+    <!-- "user" could cause some troubles with existing var -->
     {% for entry in bloguser_list %}
-        <h2><a href="">{{ entry.username }}</a></h2>
+        <h2><a href="{{ entry.get_absolute_url }}">{{ entry.username }}</a></h2>
         <p>{{ entry.description|truncatechars:100 }}</p>
     {% endfor %}
 {% else %}
 <p>No users found.</p>
 {% endif %}
 {% endblock %}
+

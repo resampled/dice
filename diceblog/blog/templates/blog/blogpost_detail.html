@@ -5,7 +5,7 @@
 <div class="bp">
     <h2 class="bp-title">{{ blogpost.title }}</h2>
     <div class="bp-h">posted by
-        <span class="bp-author">{{ blogpost.author }}</span>
+        <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
         at
         <span class="bp-datetime">{{ blogpost.order|date:"Y-m-d @ G:i:s" }} UTC</span>
     </div>

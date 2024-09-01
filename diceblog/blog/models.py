@@ -16,7 +16,7 @@ class BlogUser(AbstractUser):
     def __str__(self):
         return self.username
     def get_absolute_url(self):
-        return reverse('user-detail', kwargs={'pk':self.username})
+        return reverse('user-detail', args=[str(self.id)])
 
 def make_order():
     return datetime.datetime.now()
