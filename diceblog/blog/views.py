@@ -40,6 +40,11 @@ class PostDetailView(generic.DetailView):
                 # approve
                 cmt.save()             
                 return HttpResponseRedirect("")
+
+class UserDetailView(generic.DetailView):
+    model = BlogUser
+    paginate_by = 10
+
 @login_required
 def UserProfile(request):
     context = {

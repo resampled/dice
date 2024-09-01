@@ -7,4 +7,5 @@ urlpatterns = [
     path('userlist/', views.UserListView.as_view(), name='user-list'),
     path('accounts/profile/', views.UserProfile, name='user-profile'),
     path('post/<slug:author>/<slug:pk>', views.PostDetailView.as_view(), name='post-detail'),
+    path('user/<slug:pk>', views.UserDetailView.as_view(), name='user-detail'),
 ]

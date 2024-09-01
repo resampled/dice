@@ -1,0 +1,25 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="breadcrumb"><a href="{% url 'user-list' %}">&lt;&lt; back to user list</a></div>
+<div class="up">
+    <h2 class="up-title">{{ bloguser.username }}</h2>
+    <p class="bp-full">{{ blogpost.pre_content }}</p>
+</div>
+
+<div class="uppl">
+{% if bloguser.blogpost_set %}
+    {% for post in bloguser.blogpost_set.all %}
+    <div class="uppl-item" id="uppl-post-{{ post.id }}">
+        <h3 class="uppl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </h3>
+        <div class="uppl-h">
+            <span class="uppl-datetime">{{ post.order|date:"Y-m-d @ G:i:s" }} UTC</span>
+        </div>
+        <p class="uppl-full">{{ post.pre_content|truncatechars:500 }}</p>
+    </div>    
+    {% endfor %}
+{% else %}
+No posts.
+{% endif %}
+</div>
+{% endblock %}
