@@ -35,7 +35,7 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
     class Meta:
-        ordering = ['order']
+        ordering = ['-order']
 
 class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
