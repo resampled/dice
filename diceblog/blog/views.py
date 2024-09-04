@@ -6,9 +6,9 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import BlogPost, BlogUser, BlogComment
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 user = get_user_model()
 
@@ -54,18 +54,32 @@ def UserProfile(request):
     }
     return render(request, 'user_profile.html', context=context)
 
-# todo: fix permissions (users can only edit/delete their own posts, except for sysop)
-class PostCreate(PermissionRequiredMixin, CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = BlogPost
     fields = ['title', 'pre_content']
-    permission_required = 'catalog.add_blogpost'
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
-class PostUpdate(PermissionRequiredMixin, UpdateView):
+#todo link these to actual templates
+
+class PostUpdate(LoginRequiredMixin, UpdateView):
     model = BlogPost
     fields = ['title', 'pre_content']
-    permission_required = 'catalog.change_blogpost'
+    def get(self, request, *args, **kwargs):
+        # check if editor is author, or if editor is admin
+        if request.user.username == kwargs["author"] or request.user.has_perm('change_blogpost'):
+            return HttpResponse("success")
+        else:
+            return HttpResponse("fail")
 
-class PostDelete(PermissionRequiredMixin, DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     model = BlogPost
     success_url = reverse_lazy('post-list') #change this
-    permission_required = 'catalog.delete_blogpost'
+    def get(self, request, *args, **kwargs):
+        # check if editor is author, or if editor is admin
+        if request.user.username == kwargs["author"] or request.user.has_perm('delete_blogpost'):
+            return HttpResponse("success")
+        else:
+            return HttpResponse("fail")
+
