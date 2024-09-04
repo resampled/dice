@@ -9,8 +9,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect, HttpResponse
+from nanoid import generate
 
 user = get_user_model()
+
+#imported from models.py
+def make_order():
+    return datetime.datetime.now()
+def make_id(chars):
+    return str(generate('1234567890bcdfghijkmnpqrstuvwxyz', chars))
 
 def homepage(request):
     context = {
@@ -35,7 +42,8 @@ class PostDetailView(generic.DetailView):
                 cmt = BlogComment.create(
                     assigned_post=self.get_object(),
                     author=self.request.user,
-                    content=request.POST["content"]
+                    content=request.POST["content"],
+                    id=make_id(18)
                 )
                 # detect whitespace only comment
                 if cmt.content == "" or re.match(r"^\s+$", cmt.content):
@@ -59,6 +67,7 @@ class PostCreate(LoginRequiredMixin, CreateView):
     fields = ['title', 'pre_content']
     def form_valid(self, form):
         form.instance.author = self.request.user
+        form.instance.id = make_id(8) # stop id freezing bug
         return super().form_valid(form)
 
 #todo link these to actual templates

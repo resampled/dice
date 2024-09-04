@@ -18,6 +18,7 @@ class BlogUser(AbstractUser):
     def get_absolute_url(self):
         return reverse('user-detail', args=[str(self.id)])
 
+# also change in views.py if this is edited
 def make_order():
     return datetime.datetime.now()
 def make_id(chars):
