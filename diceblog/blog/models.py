@@ -40,6 +40,8 @@ class BlogPost(models.Model):
 class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
+    # let's try out this one soon...    
+    #parent = models.ForeignKey('BlogComment',on_delete=models.CASCADE, null=True)
     content = models.TextField(max_length=comment_max)
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(18))

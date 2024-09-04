@@ -1,9 +1,12 @@
 import re
 import datetime
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import BlogPost, BlogUser, BlogComment
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 
@@ -51,4 +54,17 @@ def UserProfile(request):
     }
     return render(request, 'user_profile.html', context=context)
 
+class PostCreate(PermissionRequiredMixin, CreateView):
+    model = BlogPost
+    fields = ['title', 'pre_content']
+    permission_required = 'catalog.add_blogpost'
 
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    model = BlogPost
+    fields = ['title', 'pre_content']
+    permission_required = 'catalog.change_blogpost'
+
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    model = BlogPost
+    success_url = reverse_lazy('post-list') #change this
+    permission_required = 'catalog.delete_blogpost'
