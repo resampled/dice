@@ -24,11 +24,11 @@ def make_id(chars):
     return str(generate('1234567890bcdfghijkmnpqrstuvwxyz', chars))
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=blog_title_max, unique=True)
+    title = models.CharField(max_length=blog_title_max, unique=True, help_text=f"max: {blog_title_max}")
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     # preformatted content
-    pre_content = models.TextField(max_length=blog_content_max)
+    pre_content = models.TextField(max_length=blog_content_max,verbose_name="Body",help_text=f"max: {blog_content_max}")
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk':self.id,'author':self.author.username})

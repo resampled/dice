@@ -54,6 +54,7 @@ def UserProfile(request):
     }
     return render(request, 'user_profile.html', context=context)
 
+# todo: fix permissions (users can only edit/delete their own posts, except for sysop)
 class PostCreate(PermissionRequiredMixin, CreateView):
     model = BlogPost
     fields = ['title', 'pre_content']
