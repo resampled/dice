@@ -7,8 +7,7 @@
     <h2 class="bp-title">{{ blogpost.title }}</h2>
     <div class="bp-h">posted by
         <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
-        at
-        <span class="bp-dt">{{ blogpost.order|dtsince }}</span>
+        <span class="bp-dt">{{ blogpost.order|dtsince }}</span> ago
             <span class="bp-longdt">({{ blogpost.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
     </div>
     <p class="bp-full">{{ blogpost.pre_content }}</p>
