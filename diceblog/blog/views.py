@@ -43,7 +43,6 @@ class PostDetailView(generic.DetailView):
                     assigned_post=self.get_object(),
                     author=self.request.user,
                     content=request.POST["content"],
-                    id=make_id(18)
                 )
                 # detect whitespace only comment
                 if cmt.content == "" or re.match(r"^\s+$", cmt.content):
