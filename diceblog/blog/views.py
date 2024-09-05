@@ -78,7 +78,8 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
     def get(self, request, *args, **kwargs):
         # check if editor is author, or if editor is admin
         if request.user.username == kwargs["author"] or request.user.has_perm('change_blogpost'):
-            return HttpResponse("success")
+            # todo: get context to generate form
+            return render(request, 'blog/blogpost_form.html')
         else:
             return HttpResponse("fail")
 
