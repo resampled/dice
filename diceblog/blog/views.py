@@ -8,6 +8,7 @@ from .models import BlogPost, BlogUser, BlogComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from nanoid import generate
 
@@ -69,16 +70,20 @@ class PostCreate(LoginRequiredMixin, CreateView):
         form.instance.id = make_id(8) # stop id freezing bug
         return super().form_valid(form)
 
-#todo link these to actual templates
-
 class PostUpdate(LoginRequiredMixin, UpdateView):
+    # this is a bit scuffed
     model = BlogPost
     fields = ['title', 'pre_content']
     def get(self, request, *args, **kwargs):
         # check if editor is author, or if editor is admin
         if request.user.username == kwargs["author"] or request.user.has_perm('change_blogpost'):
-            # todo: get context to generate form
-            return render(request, 'blog/blogpost_form.html')
+            # get context to generate form...probably not efficient
+            kwargs['formtype'] = 'update'
+            postpk = kwargs["pk"]
+            postobj = BlogPost.objects.get(id=f'{postpk}')
+            kwargs['title'] = postobj.title
+            kwargs['content'] = postobj.pre_content
+            return render(request,'blog/blogpost_form.html',kwargs)
         else:
             return HttpResponse("fail")
 
@@ -88,7 +93,8 @@ class PostDelete(LoginRequiredMixin, DeleteView):
     def get(self, request, *args, **kwargs):
         # check if editor is author, or if editor is admin
         if request.user.username == kwargs["author"] or request.user.has_perm('delete_blogpost'):
-            return HttpResponse("success")
+            kwargs['formtype'] = 'delete'
+            return render(request,'blog/blogpost_form.html',kwargs)
         else:
             return HttpResponse("fail")
 
