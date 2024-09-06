@@ -39,7 +39,7 @@ class BlogPost(models.Model):
         ordering = ['-order']
 
 class BlogComment(models.Model):
-    assigned_post = models.ForeignKey('BlogPost',on_delete=models.RESTRICT, null=True)
+    assigned_post = models.ForeignKey('BlogPost',on_delete=models.CASCADE, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     # let's try out this one soon...    
     #parent = models.ForeignKey('BlogComment',on_delete=models.CASCADE, null=True)
@@ -47,7 +47,7 @@ class BlogComment(models.Model):
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(18))
     def create(assigned_post,author,content):
-        return BlogComment(assigned_post=assigned_post,author=author,content=content,order=make_order(),id=make_id(8))
+        return BlogComment(assigned_post=assigned_post,author=author,content=content,order=make_order(),id=make_id(18))
     def __str__(self):
         return self.content[:90]    
     class Meta:
