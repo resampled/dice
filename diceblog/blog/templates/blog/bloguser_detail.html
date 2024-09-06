@@ -15,6 +15,10 @@
         <h3 class="uppl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </h3>
         <div class="uppl-h">
             <span class="uppl-comments uppl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>       &bull; <span class="uppl-dt">{{ post.order|dtsince }}</span> ago
+            {% if user == bloguser %}
+            <span class="uppl-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
+            <span class="uppl-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
+            {% endif %}
         </div>
         <p class="uppl-preview">{{ post.pre_content|truncatechars:500 }}</p>
     </div>    

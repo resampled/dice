@@ -5,12 +5,16 @@
 {% if blogpost_list %}
     {% for post in blogpost_list %}
         <div class="bl-item">
+        <div class="bl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
         <div class="bl-h">
             <span class="bl-author">by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a></span>
             &bull; <span class="bl-comments bl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
             &bull; <span class="bl-dt">{{ post.order|dtsince }}</span> ago
+            {% if user == post.author %}
+            <span class="bl-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
+            <span class="bl-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
+            {% endif %}
         </div>
-        <div class="bl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
         <p class="bl-preview">{{ post.pre_content|truncatechars:500 }}</p>
         </div>
     {% endfor %}
