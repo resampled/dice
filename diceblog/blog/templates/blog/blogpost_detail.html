@@ -9,6 +9,10 @@
         <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
         <span class="bp-dt">{{ blogpost.order|dtsince }}</span> ago
             <span class="bp-longdt">({{ blogpost.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+        {% if user == blogpost.author %}
+            <span class="bp-edit"><a href="{% url 'post-update' author=blogpost.author pk=blogpost.id %}">[edit]</a></span>
+            <span class="bp-delete"><a href="{% url 'post-delete' author=blogpost.author pk=blogpost.id %}">[delete]</a></span>
+        {% endif %}
     </div>
     <p class="bp-full">{{ blogpost.pre_content }}</p>
 </div>
