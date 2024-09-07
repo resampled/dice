@@ -1,24 +1,30 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    <div class="postform-back">
+        <a href="javascript:history.back()">Go Back!</a>
+        <span>(Or just press the "back" button on your browser.)</span>
+    </div>
+    <hr>
     <form action="" method="post">
-        {% csrf_token %}
+       {% csrf_token %}
             {% if formtype == 'delete' %}
-                DELETE
-            {% else %}<!-- update -->
+            <div class="postdelete">
+                <span class="postdelete-desc">Press "Submit" to PERMANENTLY delete this post. Once it is deleted, it cannot be undone.</span>
+            </div>
+            {% else %}<!-- update (or create...) -->
                 <!-- todo pair with the char limits in models.py -->
-                UPDATE
-            <div class="postupdate-title">
+            <div class="postform-title">
                 <label for="id_title">Title:</label>
                 <div id="id_title_helptext" class="helptext">max: 240</div>                
                 <input id="id_title" type="text" name="title" value="{{ title }}" maxlength="240" required aria-describedby="id_title_helptext">
             </div>
-            <div class="postupdate-content">
+            <div class="postform-content">
                 <label for="id_pre_content">Body:</label>
                 <div id="id_pre_content_helptext" class="helptext">max: 80000</div>
                 <textarea id="id_pre_content" name="pre_content" cols="40" rows="10" maxlength="80000" required aria-describedby="id_pre_content_helptext">{{ content }}</textarea>
-            {% endif %}
             </div>
+            {% endif %}
         <input type="submit" value="Submit" />
     </form>
 {% endblock %}
