@@ -4,7 +4,7 @@
 {% block content %}
 <div class="breadcrumb"><a href="{% url 'post-list' %}">&lt;&lt; back to post list</a></div>
 <div class="bp">
-    <h2 class="bp-title">{{ blogpost.title }}</h2>
+    <div class="bp-title">{{ blogpost.title }}</div>
     <div class="bp-h">posted by
         <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
         <span class="bp-dt">{{ blogpost.order|dtsince }}</span> ago
@@ -28,7 +28,7 @@
     <input type="submit" disabled value="Post to {{ blogpost.id }}">
 {% endif %}
 </div>
-
+<div class="bp-commentcount">{{ blogpost.blogcomment_set.count }} comments total</div>
 {% if blogpost.blogcomment_set %}
     {% for cmt in blogpost.blogcomment_set.all %}
     <div class="cmt" id="cmt-{{ cmt.id }}">
