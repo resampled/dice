@@ -2,6 +2,7 @@
 {% load dtsince %}
 
 {% block content %}
+<div class="bl-new"><a href="{% url 'post-create' %}">create new post</a></div>
 {% if blogpost_list %}
     {% for post in blogpost_list %}
         <div class="bl-item">
