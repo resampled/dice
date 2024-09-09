@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+    <form method="post">
+    {% csrf_token %}
+    <textarea name="content"></textarea>
+    <input hidden name="parent" value="{{ cmt.id }}">
+    <input type="submit" name="replysubmit" value="Reply">
+    </form>
+{% else %}
+    <textarea disabled>You're not logged in! (how did you press this button?)</textarea>
+    <input type="submit" disabled value="Reply">
+{% endif %}
