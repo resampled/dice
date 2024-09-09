@@ -37,8 +37,12 @@
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-dt">{{ cmt.order|dtsince }}</span>
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+            {% if user.is_authenticated %}<a class="cmt-replybutton" hx-get="
+                {% url 'cmt-reply' pk=cmt.id %}" hx-target="#cmt-target-{{ cmt.id }}">Reply</a>{% endif %}
         </div>
-        <p class="cmt-full">{{ cmt.content }}</p></div>    
+        <p class="cmt-full">{{ cmt.content }}</p>
+        <div id="cmt-target-{{ cmt.id }}"></div>
+    </div>
     {% endfor %}
 </div>
 {% else %}
