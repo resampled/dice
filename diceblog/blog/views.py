@@ -52,27 +52,10 @@ class PostDetailView(generic.DetailView):
                     # approve
                     cmt.save()             
                     return HttpResponseRedirect("")
-                elif 'replysubmit' in request.POST: #crashes right now
-                    cmt = BlogComment.create(
-                        parent=request.POST["parent"], # this is not the problem, something else is
-                        assigned_post=self.get_object(),
-                        author=self.request.user,
-                        content=request.POST["content"],
-                    )
-                    # detect whitespace only comment
-                    if cmt.content == "" or re.match(r"^\s+$", cmt.content):
-                        return HttpResponse("Failed! (your comment must have text in it)")
-                    else:
-                        cmt.save()             
-                        return HttpResponseRedirect("")
-    
                 else:
-                    return HttpResponse("Failed! (form error)")
-
-class CmtReply(generic.DetailView):
-    context_object_name="cmt"
-    template_name = "blog/cmt_reply.html"
-    model = BlogComment
+                    return HttpResponseRedirect("")
+            else:
+                return HttpResponseRedirect("")
 
 class UserDetailView(generic.DetailView):
     model = BlogUser
@@ -119,4 +102,3 @@ class PostDelete(LoginRequiredMixin, DeleteView):
             return render(request,'blog/blogpost_form.html',kwargs)
         else:
             return HttpResponse("fail")
-

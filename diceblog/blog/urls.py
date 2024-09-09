@@ -11,5 +11,4 @@ urlpatterns = [
     path('new/', views.PostCreate.as_view(), name='post-create'),
     path('post/<slug:author>/<slug:pk>/edit', views.PostUpdate.as_view(), name='post-update'),
     path('post/<slug:author>/<slug:pk>/delete', views.PostDelete.as_view(), name='post-delete'),
-    path('cmt_reply/<slug:pk>/',views.CmtReply.as_view(), name='cmt-reply')
 ]
