@@ -38,35 +38,36 @@ class PostDetailView(generic.DetailView):
     model = BlogPost
     # cmtbox (for guests this isn't used - shows a non-functional mimic form instead)
     def post(self, request, *args, **kwargs):
-            if user.is_authenticated and 'cmtsubmit' in request.POST and 'content' in request.POST:
-                # make comment model and save it. not the easiest way to do this
-                cmt = BlogComment.create(
-                    assigned_post=self.get_object(),
-                    author=self.request.user,
-                    content=request.POST["content"],
-                )
-                # detect whitespace only comment
-                if cmt.content == "" or re.match(r"^\s+$", cmt.content):
-                    return HttpResponseRedirect("")
-                # approve
-                cmt.save()             
-                return HttpResponseRedirect("")
-            elif 'replysubmit' in request.POST and 'content' in request.POST:
-                cmt = BlogComment.create(
-                    parent=request.POST["parent"],
-                    assigned_post=self.get_object(),
-                    author=self.request.user,
-                    content=request.POST["content"],
-                )
-                # detect whitespace only comment
-                if cmt.content == "" or re.match(r"^\s+$", cmt.content):
-                    return HttpResponse("Failed! (your comment must have text in it)")
-                else:
+            if user.is_authenticated:
+                if 'cmtsubmit' in request.POST:
+                    # make comment model and save it. not the easiest way to do this
+                    cmt = BlogComment.create(
+                        assigned_post=self.get_object(),
+                        author=self.request.user,
+                        content=request.POST["content"],
+                    )
+                    # detect whitespace only comment
+                    if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+                        return HttpResponseRedirect("")
+                    # approve
                     cmt.save()             
-                    return HttpResponse("Done.")
-
-            else:
-                return HttpResponse("Failed! (form error)")
+                    return HttpResponseRedirect("")
+                elif 'replysubmit' in request.POST: #crashes right now
+                    cmt = BlogComment.create(
+                        parent=request.POST["parent"], # this is not the problem, something else is
+                        assigned_post=self.get_object(),
+                        author=self.request.user,
+                        content=request.POST["content"],
+                    )
+                    # detect whitespace only comment
+                    if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+                        return HttpResponse("Failed! (your comment must have text in it)")
+                    else:
+                        cmt.save()             
+                        return HttpResponseRedirect("")
+    
+                else:
+                    return HttpResponse("Failed! (form error)")
 
 class CmtReply(generic.DetailView):
     context_object_name="cmt"
