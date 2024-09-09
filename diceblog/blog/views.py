@@ -38,18 +38,23 @@ class PostDetailView(generic.DetailView):
     model = BlogPost
     # cmtbox (for guests this isn't used - shows a non-functional mimic form instead)
     def post(self, request, *args, **kwargs):
-            if user.is_authenticated and 'cmtsubmit' in request.POST and 'content' in request.POST:
-                # make comment model and save it. not the easiest way to do this
-                cmt = BlogComment.create(
-                    assigned_post=self.get_object(),
-                    author=self.request.user,
-                    content=request.POST["content"],
-                )
-                # detect whitespace only comment
-                if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+            if user.is_authenticated:
+                if 'cmtsubmit' in request.POST:
+                    # make comment model and save it. not the easiest way to do this
+                    cmt = BlogComment.create(
+                        assigned_post=self.get_object(),
+                        author=self.request.user,
+                        content=request.POST["content"],
+                    )
+                    # detect whitespace only comment
+                    if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+                        return HttpResponseRedirect("")
+                    # approve
+                    cmt.save()             
                     return HttpResponseRedirect("")
-                # approve
-                cmt.save()             
+                else:
+                    return HttpResponseRedirect("")
+            else:
                 return HttpResponseRedirect("")
 
 class UserDetailView(generic.DetailView):
