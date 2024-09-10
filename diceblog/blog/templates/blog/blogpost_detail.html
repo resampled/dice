@@ -21,11 +21,11 @@
     <form method="post">
     {% csrf_token %}
     <textarea name="content"></textarea>
-    <input type="submit" name="cmtsubmit" value="Post to {{ blogpost.id }}">
+    <input type="submit" name="cmtsubmit" value="Submit comment">
     </form>
 {% else %}
     <textarea disabled>You're not logged in!</textarea>
-    <input type="submit" disabled value="Post to {{ blogpost.id }}">
+    <input type="submit" disabled value="Submit comment">
 {% endif %}
 </div>
 {% if blogpost.blogcomment_set %}
@@ -38,11 +38,20 @@
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-dt">{{ cmt.order|dtsince }}</span>
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+            {% if user.is_authenticated %}
             <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>
+            {% endif %}
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
         <div class="cmt-replyform" id="cmt-replyform-{{ cmt.id }}" style="display:none;">
-            replyform
+            {% if user.is_authenticated %}
+            <form method="post">
+            {% csrf_token %}
+                <textarea name="content"></textarea>
+                <input hidden name="parent" value="{{ cmt.id }}">
+                <input type="submit" name="replysubmit" value="Submit reply">
+            </form>
+            {% endif %}
         </div>
     </div>
     {% endif %}

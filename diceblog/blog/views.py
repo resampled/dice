@@ -65,10 +65,12 @@ class PostDetailView(generic.DetailView):
                     )
                     if detect_whitespace_only(cmt.content):
                         return HttpResponseRedirect("")
-                else:
+                    cmt.save()
                     return HttpResponseRedirect("")
+                else:
+                    return HttpResponse("fail! (bad POST)")
             else:
-                return HttpResponseRedirect("")
+                return HttpResponse("fail! (form submit while logged out)")
 
 class UserDetailView(generic.DetailView):
     model = BlogUser
