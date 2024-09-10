@@ -39,6 +39,19 @@
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
+{% if user.is_authenticated %}
+        <div class="cmt-re">
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="content"></textarea>
+            <input name="parent" hidden value="{{ cmt.id }}">
+            <input type="submit" name="replysubmit" value="Post to {{ blogpost.id }}">
+        </form>
+{% else %}
+            <textarea disabled>You're not logged in!</textarea>
+            <input type="submit" disabled value="Post to {{ blogpost.id }}">
+        </div>
+{% endif %}
     </div>
     {% endfor %}
 </div>

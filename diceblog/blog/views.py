@@ -8,7 +8,7 @@ from .models import BlogPost, BlogUser, BlogComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from nanoid import generate
 
@@ -45,6 +45,19 @@ class PostDetailView(generic.DetailView):
                         assigned_post=self.get_object(),
                         author=self.request.user,
                         content=request.POST["content"],
+                    )
+                    # detect whitespace only comment
+                    if cmt.content == "" or re.match(r"^\s+$", cmt.content):
+                        return HttpResponseRedirect("")
+                    # approve
+                    cmt.save()             
+                    return HttpResponseRedirect("")
+                elif 'replysubmit' in request.POST:
+                    cmt = BlogComment.create_reply(
+                        assigned_post=self.get_object(),
+                        author=self.request.user,
+                        content=request.POST["content"],
+                        parent=get_object_or_404(BlogComment,pk=request.POST.get('parent',0)),
                     )
                     # detect whitespace only comment
                     if cmt.content == "" or re.match(r"^\s+$", cmt.content):

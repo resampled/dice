@@ -42,12 +42,16 @@ class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.CASCADE, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     # let's try out this one soon...    
-    #parent = models.ForeignKey('BlogComment',on_delete=models.CASCADE, null=True)
+    parent = models.ForeignKey('BlogComment',on_delete=models.CASCADE, null=True)
     content = models.TextField(max_length=comment_max)
     order = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(18))
+    # THIS IS WHAT CAUSED THE BUG... Put this back on the original solution on main
     def create(assigned_post,author,content):
         return BlogComment(assigned_post=assigned_post,author=author,content=content,order=make_order(),id=make_id(18))
+    def create_reply(assigned_post,author,parent,content):
+        return BlogComment(assigned_post=assigned_post,author=author,parent=parent,content=content,order=make_order(),id=make_id(18))
+
     def __str__(self):
         return self.content[:90]    
     class Meta:
