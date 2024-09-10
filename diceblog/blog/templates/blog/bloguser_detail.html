@@ -1,5 +1,6 @@
 {% extends 'base_generic.html' %}
 {% load dtsince %}
+{% block title %}{{ bloguser.username }} - Diceblog{% endblock %}
 
 {% block content %}
 <div class="breadcrumb"><a href="{% url 'user-list' %}">&lt;&lt; back to user list</a></div>

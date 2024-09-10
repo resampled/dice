@@ -1,5 +1,6 @@
 {% extends 'base_generic.html' %}
 {% load dtsince %}
+{% block title %}{{ blogpost.title|truncatechars:50 }} - Diceblog{% endblock %}
 
 {% block content %}
 <div class="breadcrumb"><a href="{% url 'post-list' %}">&lt;&lt; back to post list</a></div>
