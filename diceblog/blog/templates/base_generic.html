@@ -6,6 +6,9 @@
     <title>{% block title %}Diceblog{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
    <script src="{% static 'js/htmx.org.min.js' %}"></script>
+   <script src="{% static 'js/basic.js' %}"></script>
+    {% block headelements %}
+    {% endblock %}
 </head>
 <body>
 <div class="nav">

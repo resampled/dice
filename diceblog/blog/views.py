@@ -35,7 +35,9 @@ class UserListView(generic.ListView):
     paginate_by = 10
 
 def detect_whitespace_only(s):
-    if s == "" or re.match(r"^\s+$", s)
+    if s == "" or re.match(r"^\s+$", s):
+        return True
+    return False
 
 class PostDetailView(generic.DetailView):
     model = BlogPost

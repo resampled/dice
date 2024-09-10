@@ -32,17 +32,34 @@
 <div class="bp-commentcount">{{ blogpost.blogcomment_set.count }} comments total</div>
 <div class="cmtlist">
     {% for cmt in blogpost.blogcomment_set.all %}
+    {% if not parent in cmt %} <!-- no replies here -->
     <div class="cmt" id="cmt-{{ cmt.id }}">
         <div class="cmt-h">
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-dt">{{ cmt.order|dtsince }}</span>
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+            <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
+        <div class="cmt-replyform" id="cmt-replyform-{{ cmt.id }}" style="display:none;">
+            replyform
+        </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
 {% else %}
 <span>No comments.</span>
 {% endif %}
+
+<script>
+function showHide(target) {
+    var x = document.getElementById(target);
+    if (x.style.display === "none") {
+        x.style.display = "";
+    } else {
+        x.style.display = "none";
+    }
+}
+</script>
 {% endblock %}
