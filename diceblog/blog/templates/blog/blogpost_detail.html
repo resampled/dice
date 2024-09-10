@@ -29,20 +29,32 @@
 {% endif %}
 </div>
 {% if blogpost.blogcomment_set %}
-<div class="bp-commentcount">{{ blogpost.blogcomment_set.count }} comments total</div>
+<div class="bp-commentcount">{{ blogpost.blogcomment_set.count }} comments total (including replies)</div>
 <div class="cmtlist">
     {% for cmt in blogpost.blogcomment_set.all %}
-    {% if not parent in cmt %} <!-- no replies here -->
+    {% if not cmt.parent %}
     <div class="cmt" id="cmt-{{ cmt.id }}">
         <div class="cmt-h">
             <span class="cmt-author">{{ cmt.author }}</span>
-            <span class="cmt-dt">{{ cmt.order|dtsince }}</span>
+            <span class="cmt-dt">[{{ cmt.order|dtsince }}]</span>
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
             {% if user.is_authenticated %}
             <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>
             {% endif %}
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
+        {% if cmt.blogcomment_set %}
+        <div class="cmtre-list">
+        {% for reply in cmt.blogcomment_set.all %}
+            <div class="cmtre">
+                <span class="cmtre-author">{{ reply.author }}</span>
+                <span class="cmtre-dt">[{{ reply.order|dtsince }}]</span>:
+                <span class="cmtre-full">{{ reply.content }}</span>
+            </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="cmt-replyform" id="cmt-replyform-{{ cmt.id }}" style="display:none;">
             {% if user.is_authenticated %}
             <form method="post">
@@ -60,15 +72,4 @@
 {% else %}
 <span>No comments.</span>
 {% endif %}
-
-<script>
-function showHide(target) {
-    var x = document.getElementById(target);
-    if (x.style.display === "none") {
-        x.style.display = "";
-    } else {
-        x.style.display = "none";
-    }
-}
-</script>
 {% endblock %}

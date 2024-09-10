@@ -1,5 +1,4 @@
 To do:
-* Comment replies 
 * Make forms for everything
 * * * * comments DONE! post create/edit/delete DONE!
 * fill out CSS
