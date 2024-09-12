@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Delete Post: {{ blogpost }}</h1>
 
-    {% if blogpost.blogcomment_set.all %}
+    {% if blogpost.blogcomment_set %}
     <p>This post has comments, MAYBE this will work, look up some stuff if not -remove this later-</p>
     {% else %}
     <p>Confirm you want to delete this post?</p>

@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<div class="pg-blogpost-form">
     <div class="postform-back">
         <a href="javascript:history.back()">Go Back!</a>
         <span>(Or just press the "back" button on your browser.)</span>
@@ -10,7 +11,7 @@
        {% csrf_token %}
             {% if formtype == 'delete' %}
             <div class="postdelete">
-                <span class="postdelete-desc">Press "Submit" to PERMANENTLY delete this post. Once it is deleted, it cannot be undone.</span>
+                <span class="postdelete-desc confirmwarning">Press "Submit" to PERMANENTLY delete this post. Once it is deleted, it cannot be undone.</span>
             </div>
             {% else %}{# update (or create...) #}
                 {# todo pair with the char limits in models.py #}
@@ -27,4 +28,5 @@
             {% endif %}
         <input type="submit" value="Submit" />
     </form>
+</div>
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="pg-blogcomment-delete">
+    <h2>Delete Comment #{{ blogcomment.id }}</h2>
+{{ cmtpk }}
+    {% if blogcomment.blogcomment_set %}
+    <p>This comment has {{ blogcomment.blogcomment_set.count }} comment{{ blogcomment.blogcomment_set.count|pluralize }}, deleting it will take down those replies as well.</p>
+    {% endif %}
+    <p>Confirm you want to delete this comment?</p>
+    <p class="full-cmt">"<code>{{ blogcomment.content }}</code>"</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete this comment." />
+    </form>
+    <span class="confirmwarning">Press the button above to PERMANENTLY delete this comment. Once it is deleted, it cannot be undone.<span>
+</div>
+{% endblock %}
