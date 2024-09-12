@@ -5,7 +5,7 @@
 {% block content %}
 <div class="breadcrumb"><a href="{% url 'post-list' %}">&lt;&lt; back to post list</a></div>
 <div class="bp">
-    <div class="bp-title">{{ blogpost.title }}</div>
+    <h2 class="bp-title">{{ blogpost.title }}</h2>
     <div class="bp-h">posted by
         <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
         <span class="bp-dt">{{ blogpost.order|dtsince }}</span> ago
@@ -44,18 +44,18 @@
             {% endif %}
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
-        {% if cmt.blogcomment_set %}
+{# replies #}
+{% if cmt.blogcomment_set %}
         <div class="cmtre-list">
-        {% for reply in cmt.blogcomment_set.all %}
+{% for reply in cmt.blogcomment_set.all %}
             <div class="cmtre">
                 <span class="cmtre-author">{{ reply.author }}</span>
                 <span class="cmtre-dt">[{{ reply.order|dtsince }}]</span>:
                 <span class="cmtre-full">{{ reply.content }}</span>
             </div>
-        {% endfor %}
+{% endfor %}
         </div>
-        {% endif %}
-
+{% endif %}
         <div class="cmt-replyform" id="cmt-replyform-{{ cmt.id }}" style="display:none;">
             {% if user.is_authenticated %}
             <form method="post">
