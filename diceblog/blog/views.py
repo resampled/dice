@@ -109,7 +109,10 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
 
 class PostDelete(LoginRequiredMixin, DeleteView):
     model = BlogPost
-    success_url = reverse_lazy('post-list') #change this
+    success_url = reverse_lazy('post-list') #replace?
+    # todo: rework this to CommentDelete's implementation
+    # and make it its own template instead of sharing with PostUpdate.
+    # yes my code is SHIT but hey thats why i'm doing this    
     def get(self, request, *args, **kwargs):
         # check if editor is author, or if editor is admin
         if request.user.username == kwargs["author"] or request.user.has_perm('delete_blogpost'):
@@ -117,3 +120,23 @@ class PostDelete(LoginRequiredMixin, DeleteView):
             return render(request,'blog/blogpost_form.html',kwargs)
         else:
             return HttpResponse("fail")
+
+class CommentDelete(LoginRequiredMixin, DeleteView):
+    model = BlogComment
+    success_url = reverse_lazy('post-list') #replace?
+    # check if editor is author, or if editor is admin    
+    def get_queryset(self):
+        queryset = super(CommentDelete, self).get_queryset()
+        if self.request.user.has_perm('delete_blogcomment'):
+            return queryset.filter() 
+        return queryset.filter(author=self.request.user)
+
+"""    def get(self, request, *args, **kwargs):
+        cmtpk = kwargs["pk"]
+        cmtobj = BlogComment.objects.get(id=f'{cmtpk}')
+        # check if editor is author, or if editor is admin
+        if request.user.username == cmtobj.author or request.user.has_perm('delete_blogcomment'):
+            return render(request,'blog/blogcomment_confirm_delete.html',kwargs)
+        else:
+            return HttpResponse("fail")
+"""
