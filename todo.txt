@@ -4,7 +4,6 @@ To do:
 * fill out CSS
 * * * * header DONE!, but subject to change
 --- in the futuer... ---
-* Get the AllAuth pages to load the stylesheet, if not, replace em! (could template-in-template be an option?)
 * Make different sorting methods for list view (most comments, etc.)
 
 
