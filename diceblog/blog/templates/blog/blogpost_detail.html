@@ -41,6 +41,7 @@
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
             {% if user.is_authenticated %}
             <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>
+            {% if user == cmt.author %}<a href="{% url 'comment-delete' pk=cmt.pk %}"><button>Delete</button></a>{% endif %}
             {% endif %}
         </div>
         <p class="cmt-full">{{ cmt.content }}</p>
