@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'blog.templatetags',
     'allauth',
     'allauth.account',
+    'captcha',
 ]
 
 AUTH_USER_MODEL = "blog.BlogUser"
@@ -122,6 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = 'phone'
+ACCOUNT_SIGNUP_FORM_CLASS = 'blog.formextras.SignupWithCaptcha'
 
 
 # Internationalization
