@@ -44,6 +44,10 @@ a:hover {
 
 /* */
 .cmt:target {
-   background-color: #ffa;
+    background-color: #ffa;
+}
+/* */
+.icon-delete {
+    height: 1em;
 }
 

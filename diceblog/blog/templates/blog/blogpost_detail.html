@@ -1,5 +1,5 @@
 {% extends 'base_generic.html' %}
-{% load dtsince %}
+{% load dtsince %} {% load static %}
 {% block title %}{{ blogpost.title|truncatechars:50 }} - Diceblog{% endblock %}
 
 {% block content %}
@@ -36,20 +36,25 @@
     {% if not cmt.parent %}
     <div class="cmt" id="cmt-{{ cmt.id }}">
         <div class="cmt-h">
+            {% if user == cmt.author %}<a href="{% url 'comment-delete' pk=cmt.pk %}" class="delete">
+                <img src="{% static 'icons/bin30.png' %}" alt="Delete" class="icon-delete icon"></a>
+            {% endif %}
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-dt">[{{ cmt.order|dtsince }}]</span>
             <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
             {% if user.is_authenticated %}
-            <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>
-            {% if user == cmt.author %}<a href="{% url 'comment-delete' pk=cmt.pk %}"><button>Delete</button></a>{% endif %}
-            {% endif %}
+            <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>{% endif %}
         </div>
-        <p class="cmt-full">{{ cmt.content }}</p>
+        <p class="cmt-full">{{ cmt.content }}</p> 
+
 {# replies #}
 {% if cmt.blogcomment_set %}
         <div class="cmtre-list">
 {% for reply in cmt.blogcomment_set.all %}
             <div class="cmtre">
+                {% if user == reply.author %} <a href="{% url 'comment-delete' pk=reply.pk %}" class="delete">
+                    <img src="{% static 'icons/bin30.png' %}" alt="Delete" class="icon-delete icon"></a>
+                {% endif %}
                 <span class="cmtre-author">{{ reply.author }}</span>
                 <span class="cmtre-dt">[{{ reply.order|dtsince }}]</span>:
                 <span class="cmtre-full">{{ reply.content }}</span>
@@ -58,7 +63,7 @@
         </div>
 {% endif %}
         <div class="cmt-replyform" id="cmt-replyform-{{ cmt.id }}" style="display:none;">
-            {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
             <form method="post">
             {% csrf_token %}
                 <textarea name="content"></textarea>

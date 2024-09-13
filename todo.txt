@@ -1,9 +1,8 @@
 To do:
 * Make forms for everything
-* * * * comments DONE! post create/edit/delete DONE!
+* * * * comment create/reply/delete(?) DONE! post create/edit/delete DONE!
 * fill out CSS
 * * * * header DONE!, but subject to change
---- in the futuer... ---
 * Make different sorting methods for list view (most comments, etc.)
 
 
