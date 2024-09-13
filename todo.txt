@@ -5,4 +5,4 @@ To do:
 * * * * header DONE!, but subject to change
 * Make different sorting methods for list view (most comments, etc.)
 
-
+* Make deployment branch (mostly just a different settings.py and some extra stuff in root folder)

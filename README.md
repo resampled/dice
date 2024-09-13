@@ -10,6 +10,7 @@ So far, the following Python packages are required (additional packages may be l
 * Django (`pip install Django==5.1`)
 * nanoid (`pip install nanoid==2.0.0`)
 * django-allauth (`pip install django-allauth==64.1.0`)
+* django-simple-captcha (`django-simple-captcha==0.6.0`)
 
 You can also retrieve these packages via requirements.txt.
 
