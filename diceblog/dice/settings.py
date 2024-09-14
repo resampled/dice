@@ -29,13 +29,13 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-ixxcfp=u(#@adf
 
 #DEBUG = True
 
-STATICFILES_DIRS = [
-    "/var/www/static/",
-    BASE_DIR / "blog/static",
-]
-#STATIC_ROOT = '/var/www/static'
+#STATICFILES_DIRS = [
+#    "/var/www/static/",
+#    BASE_DIR / "blog/static",
+#]
+STATIC_ROOT = '/var/www/static'
 STATIC_URL = 'static/'
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['dice-production.up.railway.app','127.0.0.1']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
