@@ -2,6 +2,9 @@
 
 from django.db import migrations, models
 
+ALTER_SQL = '''
+ALTER TABLE table_name ALTER COLUMN partial_value TYPE double precision USING (trim(partial_value)::double precision);
+'''
 
 class Migration(migrations.Migration):
 
