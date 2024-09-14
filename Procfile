@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py collectstatic --no-input && gunicorn diceblog.wsgi && ls && ls app/
+web: python diceblog/manage.py migrate && python diceblog/manage.py collectstatic --no-input && gunicorn diceblog.wsgi
