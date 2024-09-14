@@ -11,5 +11,6 @@ urlpatterns = [
     path('post/<slug:author>/<slug:pk>/edit', views.PostUpdate.as_view(), name='post-update'),
     path('post/<slug:author>/<slug:pk>/delete', views.PostDelete.as_view(), name='post-delete'),
     path('user/<slug:pk>/', views.UserDetailView.as_view(), name='user-detail'),
+    path('user/<slug:pk>/edit', views.UserUpdate.as_view(), name='user-update'),
     path('comment/<slug:pk>/delete', views.CommentDelete.as_view(), name='comment-delete'),
 ]

@@ -6,7 +6,11 @@
 <div class="breadcrumb"><a href="{% url 'user-list' %}">&lt;&lt; back to user list</a></div>
 <div class="up">
     <h2 class="up-title">{{ bloguser.username }}</h2>
-    <p class="bp-full">{{ blogpost.pre_content }}</p>
+    <div class="up-desc">
+        <span class="up-full">{{ bloguser.description }}</span>
+        {% if bloguser == user %} <a href="{% url 'user-update' pk=bloguser.id %}">[edit description]</a>
+        {% endif %}
+    </div>
 </div>
 
 <div class="uppl">

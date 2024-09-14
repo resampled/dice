@@ -82,6 +82,11 @@ def UserProfile(request):
     }
     return render(request, 'user_profile.html', context=context)
 
+# update user profile (/user/000)
+class UserUpdate(LoginRequiredMixin, UpdateView):
+    model = BlogUser
+    fields = ['description']
+
 class PostCreate(LoginRequiredMixin, CreateView):
     model = BlogPost
     fields = ['title', 'pre_content']
