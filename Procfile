@@ -1,1 +1,1 @@
-web: python diceblog/manage.py migrate && python diceblog/manage.py collectstatic --no-input && gunicorn wsgi
+web: cd diceblog && python manage.py migrate && python manage.py collectstatic --no-input && gunicorn diceblog.wsgi:application
