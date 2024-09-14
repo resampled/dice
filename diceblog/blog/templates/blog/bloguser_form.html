@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="pg-bloguser-form">
+    <div class="form-back">
+        <a href="javascript:history.back()">Go Back!</a>
+        <span>(Or just press the "back" button on your browser.)</span>
+    </div>
+    <hr>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Update">
+    </form>
+</div>
+{% endblock %}
