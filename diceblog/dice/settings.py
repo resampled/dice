@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +38,7 @@ STATIC_ROOT = '/var/www/static'
 STATIC_URL = 'static/'
 ALLOWED_HOSTS = ['dice-production.up.railway.app','127.0.0.1']
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #replace
 
 
 # Application definition
@@ -100,9 +101,13 @@ WSGI_APPLICATION = 'dice.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get('PGDATABASE'),
+        "USER": os.environ.get('PGUSER'),
+        "PASSWORD": os.environ.get('POSTGRES_PASSWORD'),
+        "HOST": os.environ.get('PGHOST'),
+        "PORT": os.environ.get('PGPORT'),
     }
 }
 
@@ -150,7 +155,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # DEPLOYMENT
-from dotenv import load_dotenv
 env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
 load_dotenv(env_path)
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
@@ -167,3 +171,4 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+CSRF_TRUSTED_ORIGINS = ['dice-production.up.railway.app']
