@@ -41,7 +41,7 @@
             {% endif %}
             <span class="cmt-author">{{ cmt.author }}</span>
             <span class="cmt-dt">[{{ cmt.order|dtsince }}]</span>
-            <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+            <span class="cmt-longdt">({{ cmt.order }} UTC)</span>
             {% if user.is_authenticated %}
             <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>{% endif %}
         </div>
