@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
             name='BlogPost',
             fields=[
                 ('title', models.CharField(help_text='max: 240', max_length=240, unique=True)),
-                ('order', models.DateTimeField(default=blog.models.make_order)),
+                ('order', models.DateTimeField(default=django.utils.timezone.now)),
                 ('id', models.SlugField(default='58kdnmm8', primary_key=True, serialize=False, unique=True)),
                 ('pre_content', models.TextField(help_text='max: 80000', max_length=80000, verbose_name='Body')),
                 ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.RESTRICT, to=settings.AUTH_USER_MODEL)),
@@ -61,7 +61,7 @@ class Migration(migrations.Migration):
             name='BlogComment',
             fields=[
                 ('content', models.TextField(max_length=1700)),
-                ('order', models.DateTimeField(default=blog.models.make_order)),
+                ('order', models.DateTimeField(default=django.utils.timezone.now)),
                 ('id', models.SlugField(default='hwb4t3bgtq8gd8w2hv', primary_key=True, serialize=False, unique=True)),
                 ('author', models.ForeignKey(null=True, on_delete=django.db.models.deletion.RESTRICT, to=settings.AUTH_USER_MODEL)),
                 ('parent', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='blog.blogcomment')),
