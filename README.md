@@ -17,4 +17,4 @@ You can also retrieve these packages via requirements.txt.
 # Installation
 This section will be filled out more comprehensively once Dice is safe for usage.
 
-Nevertheless, if you already know how to setup a Django project, you won't have to deal with many shenanigans - just cd into the project, install dependencies, makemigrations, migrate, and runserver.
+Nevertheless, if you already know how to setup a Django project, you won't have to deal with many shenanigans - just cd into the project, install dependencies, migrate, and runserver.

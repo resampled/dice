@@ -26,7 +26,7 @@ def make_id(chars):
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=blog_title_max, unique=True, help_text=f"max: {blog_title_max}")
-    order = models.DateTimeField(default=make_order)
+    publish_date = models.DateTimeField(default=make_order)
     id = models.SlugField(unique=True,primary_key=True,default=make_id(8))
     # preformatted content
     pre_content = models.TextField(max_length=blog_content_max,verbose_name="Body",help_text=f"max: {blog_content_max}")
@@ -36,21 +36,21 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
     class Meta:
-        ordering = ['-order']
+        ordering = ['-publish_date']
 
 class BlogComment(models.Model):
     assigned_post = models.ForeignKey('BlogPost',on_delete=models.CASCADE, null=True)
     author = models.ForeignKey('BlogUser',on_delete=models.RESTRICT, null=True)
     content = models.TextField(max_length=comment_max)
-    order = models.DateTimeField(default=make_order) # date published
+    publish_date = models.DateTimeField(default=make_order) # date published
     id = models.SlugField(unique=True,primary_key=True,default=make_id(18))
     # for replies
     parent = models.ForeignKey('BlogComment',on_delete=models.CASCADE, null=True)
     def create(assigned_post,author,content):
-        return BlogComment(assigned_post=assigned_post,author=author,content=content,order=make_order(),id=make_id(18))
+        return BlogComment(assigned_post=assigned_post,author=author,content=content,publish_date=make_order(),id=make_id(18))
     def create_reply(assigned_post,author,content,parent):
-        return BlogComment(assigned_post=assigned_post,author=author,content=content,parent=parent,order=make_order(),id=make_id(18))
+        return BlogComment(assigned_post=assigned_post,author=author,content=content,parent=parent,publish_date=make_order(),id=make_id(18))
     def __str__(self):
         return self.content[:90]    
     class Meta:
-        ordering = ['order']
+        ordering = ['publish_date']

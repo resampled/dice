@@ -10,7 +10,7 @@
         <div class="bl-h">
             <span class="bl-author">by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a></span>
             &bull; <span class="bl-comments bl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
-            &bull; <span class="bl-dt">{{ post.order|dtsince }}</span> ago
+            &bull; <span class="bl-dt">{{ post.publish_date|dtsince }}</span> ago
             {% if user == post.author %}
             <span class="bl-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
             <span class="bl-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
