@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'dice.wsgi.application'
 
 # switcheroo when testing
 DATABASES = {
-    "default": {
+    "default2": {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    "default-deploy": {
+    "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get('PGDATABASE'),
         "USER": os.environ.get('PGUSER'),
