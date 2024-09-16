@@ -102,11 +102,11 @@ WSGI_APPLICATION = 'dice.wsgi.application'
 
 # switcheroo when testing
 DATABASES = {
-    "default2": {
+    "default": {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-    "default": {
+    "default-deploy": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get('PGDATABASE'),
         "USER": os.environ.get('PGUSER'),
@@ -176,4 +176,4 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-CSRF_TRUSTED_ORIGINS = ['http://dice-production.up.railway.app', 'https://dice-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['http://dice-production.up.railway.app', 'https://dice-production.up.railway.app', 'http://127.0.0.1']
