@@ -8,8 +8,8 @@
     <h2 class="bp-title">{{ blogpost.title }}</h2>
     <div class="bp-h">posted by
         <span class="bp-author"><a href="{{ blogpost.author.get_absolute_url }}">{{ blogpost.author }}</a></span>
-        <span class="bp-dt">{{ blogpost.order|dtsince }}</span> ago
-            <span class="bp-longdt">({{ blogpost.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+        <span class="bp-dt">{{ blogpost.publish_date|dtsince }}</span> ago
+            <span class="bp-longdt">({{ blogpost.publish_date|date:"Y-m-d @ G:i:s" }} UTC)</span>
         {% if user == blogpost.author %}
             <span class="bp-edit"><a href="{% url 'post-update' author=blogpost.author pk=blogpost.id %}">[edit]</a></span>
             <span class="bp-delete"><a href="{% url 'post-delete' author=blogpost.author pk=blogpost.id %}">[delete]</a></span>
@@ -40,8 +40,8 @@
                 <img src="{% static 'icons/bin30.png' %}" alt="Delete" class="icon-delete icon"></a>
             {% endif %}
             <span class="cmt-author">{{ cmt.author }}</span>
-            <span class="cmt-dt">[{{ cmt.order|dtsince }}]</span>
-            <span class="cmt-longdt">({{ cmt.order|date:"Y-m-d @ G:i:s" }} UTC)</span>
+            <span class="cmt-dt">[{{ cmt.publish_date|dtsince }}]</span>
+            <span class="cmt-longdt">({{ cmt.publish_date }} UTC)</span>
             {% if user.is_authenticated %}
             <button id="cmt-replybtn-{{ cmt.id }}" onclick="replyToggler('cmt-replyform-{{ cmt.id }}','cmt-replybtn-{{ cmt.id }}','Reply','Close')">Reply</button>{% endif %}
         </div>
@@ -56,7 +56,7 @@
                     <img src="{% static 'icons/bin30.png' %}" alt="Delete" class="icon-delete icon"></a>
                 {% endif %}
                 <span class="cmtre-author">{{ reply.author }}</span>
-                <span class="cmtre-dt">[{{ reply.order|dtsince }}]</span>:
+                <span class="cmtre-dt">[{{ reply.publish_date|dtsince }}]</span>:
                 <span class="cmtre-full">{{ reply.content }}</span>
             </div>
 {% endfor %}

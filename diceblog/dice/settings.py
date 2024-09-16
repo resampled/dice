@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,20 +23,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ixxcfp=u(#@adf3zwc19^3+lk_92b8cq-&h)mp_p!1roo#e%r-'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-ixxcfp=u(#@adf3zwc19^3+lk_92b8cq-&h)mp_p!1roo#e%r-')
+#SECRET_KEY = 'django-insecure-ixxcfp=u(#@adf3zwc19^3+lk_92b8cq-&h)mp_p!1roo#e%r-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-STATICFILES_DIRS = [
-    "/var/www/static/",
-    BASE_DIR / "blog/static",
-]
-#STATIC_ROOT = '/var/www/static'
+#DEBUG = True
+
+#STATICFILES_DIRS = [
+#    "/var/www/static/",
+#    BASE_DIR / "blog/static",
+#]
+STATIC_ROOT = '/var/www/static'
 STATIC_URL = 'static/'
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['dice-production.up.railway.app','127.0.0.1']
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #replace
 
 
 # Application definition
@@ -58,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -94,10 +100,19 @@ WSGI_APPLICATION = 'dice.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# switcheroo when testing
 DATABASES = {
-    'default': {
+    "default": {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    "default-deploy": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get('PGDATABASE'),
+        "USER": os.environ.get('PGUSER'),
+        "PASSWORD": os.environ.get('POSTGRES_PASSWORD'),
+        "HOST": os.environ.get('PGHOST'),
+        "PORT": os.environ.get('PGPORT'),
     }
 }
 
@@ -141,3 +156,24 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# DEPLOYMENT
+env_path = load_dotenv(os.path.join(BASE_DIR, '.env'))
+load_dotenv(env_path)
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+import dj_database_url
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default'] = dj_database_url.config(
+        conn_max_age=500,
+        conn_health_checks=True,
+    )
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+CSRF_TRUSTED_ORIGINS = ['http://dice-production.up.railway.app', 'https://dice-production.up.railway.app', 'http://127.0.0.1']

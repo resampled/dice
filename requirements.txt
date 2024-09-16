@@ -2,3 +2,9 @@ Django==5.1
 django-allauth==64.1.0
 django-simple-captcha==0.6.0
 nanoid==2.0.0
+
+python-dotenv
+gunicorn
+dj-database-url
+psycopg2-binary
+whitenoise
