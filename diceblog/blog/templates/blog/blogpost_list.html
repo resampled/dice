@@ -3,12 +3,14 @@
 
 {% block content %}
 <div class="bl-new"><a href="{% url 'post-create' %}">create new post</a></div>
+<div class="postlist">
 {% if blogpost_list %}
     {% for post in blogpost_list %}
     <div class="pvwi">
         <div class="pvwi-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </div>
         <div class="pvwi-h">
-            <span class="pvwi-comments pvwi-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>       &bull; <span class="uppl-dt">{{ post.publish_date|dtsince }}</span> ago
+            <span class="pvwi-comments pvwi-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
+            &bull; <span class="pvwi-dt">{{ post.publish_date|dtsince }}</span> ago
             {% if user == post.author %}
             <span class="pvwi-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
             <span class="pvwi-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
@@ -38,4 +40,5 @@
 {% else %}
 <p>No posts.</p>
 {% endif %}
+</div>
 {% endblock %}
