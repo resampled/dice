@@ -5,25 +5,23 @@
 <div class="bl-new"><a href="{% url 'post-create' %}">create new post</a></div>
 {% if blogpost_list %}
     {% for post in blogpost_list %}
-        <div class="bl-item">
-        <div class="bl-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
-        <div class="bl-h">
-            <span class="bl-author">by <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a></span>
-            &bull; <span class="bl-comments bl-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>
-            &bull; <span class="bl-dt">{{ post.publish_date|dtsince }}</span> ago
+    <div class="pvwi">
+        <div class="pvwi-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> </div>
+        <div class="pvwi-h">
+            <span class="pvwi-comments pvwi-comments-no-{{ post.blogcomment_set.count }}">{{ post.blogcomment_set.count }} comment{{ post.blogcomment_set.count|pluralize }}</span>       &bull; <span class="uppl-dt">{{ post.publish_date|dtsince }}</span> ago
             {% if user == post.author %}
-            <span class="bl-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
-            <span class="bl-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
+            <span class="pvwi-edit"><a href="{% url 'post-update' author=post.author pk=post.id %}">[edit]</a></span>
+            <span class="pvwi-delete"><a href="{% url 'post-delete' author=post.author pk=post.id %}">[delete]</a></span>
             {% endif %}
         </div>
-        <p class="bl-preview">{{ post.pre_content|truncatechars:500 }}</p>
-        </div>
+        <p class="pvwi-content">{{ post.pre_content|truncatechars:500 }}</p>
+    </div>    
     {% endfor %}
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a href="?page={{ page_obj.previous_page_number }}">prev</a>
         {% endif %}
 
         <span class="current">
