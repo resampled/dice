@@ -1,9 +1,9 @@
 @font-face {
     font-family: "EmOne";
     src:
-        url('static/fonts/EmOne-SemiBold.woff2') format("woff2"),
-        url('static/fonts/EmOne-SemiBold.woff') format("woff"),
-        url('static/fonts/EmOne-SemiBold.ttf') format("ttf");
+        url("/static/fonts/EmOne-SemiBold.woff2") format("woff2"),
+        url("/static/fonts/EmOne-SemiBold.woff") format("woff"),
+        url("/static/fonts/EmOne-SemiBold.ttf") format("ttf");
     font-weight: normal;
     font-style: normal;
 }
