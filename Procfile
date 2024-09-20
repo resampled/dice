@@ -1,1 +1,1 @@
-web: cd diceblog && python manage.py migrate && python manage.py createsuperuser --no-input --username=admin --email=000test000@md5hashing.net && python manage.py collectstatic --no-input && gunicorn dice.wsgi:application
+web: cd diceblog && python manage.py migrate && python deletesuperuser.py && python manage.py createsuperuser --no-input --username=admin --email=000test000@md5hashing.net && python manage.py collectstatic --no-input && gunicorn dice.wsgi:application
