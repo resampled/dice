@@ -1,10 +1,19 @@
-/* everywhere */
-body {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background: linear-gradient(#55f,#779) fixed;
+@font-face {
+    font-family: "EmOne";
+    src:
+        url('static/fonts/EmOne-SemiBold.woff2') format("woff2"),
+        url('static/fonts/EmOne-SemiBold.woff') format("woff"),
+        url('static/fonts/EmOne-SemiBold.ttf') format("ttf");
+    font-weight: normal;
+    font-style: normal;
 }
 ::selection {
   background:wheat;
+}
+/* everywhere */
+body {
+  font-family: 'EmOne', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background: linear-gradient(#55f,#779) fixed;
 }
 .nav {
   position:fixed;

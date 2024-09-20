@@ -1,0 +1,2 @@
+Icons in diceblog/blog/static/icons/* by Icons8 <www.icons8.com>.
+"Em One" font by Type Forward Foundry <www.typeforward.com>.
