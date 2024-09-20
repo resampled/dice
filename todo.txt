@@ -1,5 +1,4 @@
 To do:
-* Make "moderator" usergroup and implement bans
 * Make post/comment edit/delete buttons visible to "moderators"/admins
 * fill out CSS
 * * * * header DONE!, but subject to change
