@@ -137,7 +137,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # AllAuth config - https://docs.allauth.org/en/latest/account/configuration.html 
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_SIGNUP_FORM_HONEYPOT_FIELD = 'phone'
 ACCOUNT_SIGNUP_FORM_CLASS = 'blog.formextras.SignupWithCaptcha'
 
 
