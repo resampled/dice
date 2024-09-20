@@ -15,5 +15,3 @@ Python 3.12.3 is used for development. Realistically, this app should work on an
 * FOR DEPLOYMENT:
 1. Connect to a Postgres database and fill out the environment variables left in `/dice/settings.py` - or change it to your own DB (may cause issues).
 2. Copy the command in `Procfile` and paste, leaving out the `web: ` at the start (if you use Railway or another service that uses the Procfile, this is done automatically)
-
-The Procfile generates a superuser automatically, please fill out the `DJANGO_SUPERUSER_PASSWORD` environment variable (and edit the email in the Procfile if you have an email backend.)
