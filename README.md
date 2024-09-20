@@ -10,7 +10,10 @@ Python 3.12.3 is used for development. Realistically, this app should work on an
 1. Clone or download this project (use `main` branch for testing, `deploy` for production)
 2. Get pip to install the dependencies listed in `requirements.txt`.
 3. Configure `/dice/settings.py` to your liking. 
-4. FOR TESTING:
-`python manage.py migrate` and `python manage.py runserver`.
-4. FOR DEPLOYMENT:
-Copy the command in `Procfile` and paste, leaving out the `web: ` at the start (if you use Railway or another service that uses the Procfile, this is done automatically)
+* FOR TESTING:
+1. `python manage.py migrate` and `python manage.py runserver`.
+* FOR DEPLOYMENT:
+1. Connect to a Postgres database and fill out the environment variables left in `/dice/settings.py` - or change it to your own DB (may cause issues).
+2. Copy the command in `Procfile` and paste, leaving out the `web: ` at the start (if you use Railway or another service that uses the Procfile, this is done automatically)
+
+The Procfile generates a superuser automatically, please fill out the `DJANGO_SUPERUSER_PASSWORD` environment variable.
