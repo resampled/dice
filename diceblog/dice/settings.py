@@ -175,4 +175,4 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
-CSRF_TRUSTED_ORIGINS = ['http://dice-production.up.railway.app', 'https://dice-production.up.railway.app', 'http://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['http://dice-production.up.railway.app', 'https://dice-production.up.railway.app', 'http://127.0.0.1', 'https://beta0.meizen.org/']
